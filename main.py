@@ -20,10 +20,13 @@ def handle_events():
                 return False
     return True
 
-def draw_text(screen, text, pos, font_size):
-    font = pygame.font.SysFont('LiberationMono', font_size)
-    display_text = font.render(str(text), True, config.BLACK)
-    screen.blit(display_text, (pos))
+def draw_rect(screen, color, rect, width):
+    pygame.draw.rect(screen, color, rect, width)
+
+# def draw_text(screen, text, pos, font_size):
+#     font = pygame.font.SysFont('LiberationMono', font_size)
+#     display_text = font.render(str(text), True, config.BLACK)
+#     screen.blit(display_text, (pos))
 
 def main():
     screen = init_game()
@@ -32,11 +35,22 @@ def main():
     while running:
         running = handle_events()
         screen.fill(config.GREEN) # Use color from config
-        mouse_pos = pygame.mouse.get_pos()
-        draw_text(screen, mouse_pos, mouse_pos, 15) # Tells user mouse coordinates
+        # mouse_pos = pygame.mouse.get_pos()
+        # draw_text(screen, mouse_pos, mouse_pos, 15) # Tells user mouse coordinates
+        x = 400
+        y = 300
+        rect = (x, y, 50, 50)
+        draw_rect(screen, config.RED, tuple(rect), width=0)
 
-
-
+        key = pygame.key.get_pressed()
+        if key[pygame.K_a]:
+           x -= 1
+        if key[pygame.K_d]:
+           x += 1
+        if key[pygame.K_s]:
+           y += 1
+        if key[pygame.K_w]:
+           y -= 1
 
         pygame.display.flip()
         # Limit the frame rate to the specified frames per second
